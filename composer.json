@@ -1,0 +1,24 @@
+{
+    "name": "ramas/kilo-tdd",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ramas",
+            "email": "ramas.developer@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"TDD\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Test\\": "tests/"}
+    },
+    "scripts": {
+        "test": "phpunit tests/Unit",
+        "tests": "phpunit tests/Unit"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5"
+    }
+}

@@ -30,6 +30,8 @@ class WordCounterTest extends TestCase
 
     private const MAMA = 'mama';
 
+    private const CORRECT_ARRAY = ['labas' => 2, 'mama' => 1];
+
     protected function setUp(): void
     {
         $this->wordCounter = new WordCounter();
@@ -44,7 +46,7 @@ class WordCounterTest extends TestCase
     {
         $this->expectException(EmptyStringException::class);
 
-        $this->split(self::STRING_EMPTY, self::DELIMITER_COMMA);
+        $this->wordCounter->process(self::STRING_EMPTY, self::DELIMITER_COMMA);
     }
 
     public function test_should_split_words_through_comma(): void
@@ -78,14 +80,12 @@ class WordCounterTest extends TestCase
         $this->assertContains(2, $words);
     }
 
-    public function test_should_return_sorted_array(): void
+    public function test_should_return_correct_array(): void
     {
-        $split = $this->split(self::STRING_WITH_COMMA, self::DELIMITER_COMMA);
-        $words = $this->countWords($split);
-        $sortedWords = $this->sort($words);
+        $correct = $this->wordCounter->process(self::STRING_WITH_COMMA, self::DELIMITER_COMMA);
 
-        $this->assertIsArray($sortedWords);
-        $this->assertEquals(['labas' => 2, 'mama' => 1], $sortedWords);
+        $this->assertIsArray($correct);
+        $this->assertEquals(self::CORRECT_ARRAY, $correct);
     }
 
     private function split(string $string, string $delimiter): array
@@ -96,10 +96,5 @@ class WordCounterTest extends TestCase
     private function countWords(array $split): array
     {
         return $this->wordCounter->countWords($split);
-    }
-
-    private function sort(array $words): array
-    {
-        return $this->wordCounter->sort($words);
     }
 }

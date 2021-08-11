@@ -6,9 +6,9 @@ namespace TDD;
 
 class WordCounter
 {
-    public function split(string $value): array
+    public function split(string $text, string $delimiter): array
     {
-        return explode(',', $value);
+        return explode($delimiter, $text);
     }
 
     public function countWords(array $words): array
@@ -20,5 +20,18 @@ class WordCounter
     {
         arsort($words);
         return $words;
+    }
+
+    public function process(string $text, string $delimiter): array
+    {
+        if(!$text) {
+            throw new EmptyStringException();
+        }
+        
+        $split = $this->split($text, $delimiter);
+        $count = $this->countWords($split);
+        $sort = $this->sort($count);
+
+        return $sort;
     }
 }
